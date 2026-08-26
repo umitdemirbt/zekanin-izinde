@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html lang="tr" class="h-full bg-slate-900 text-slate-100">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🤖 Bilfen | Yapay Zekâ ve Zekâ Keşif Yolculuğu (12 Aşama)</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f6ff',
+                            100: '#e0edff',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        },
+                        ai: {
+                            cyan: '#06b6d4',
+                            purple: '#a855f7',
+                            pink: '#ec4899',
+                            emerald: '#10b981',
+                            amber: '#f59e0b'
+                        },
+                        bilfen: {
+                            red: '#dc2626',
+                            gold: '#d97706',
+                            navy: '#0f172a'
+                        }
+                    },
+                    animation: {
+                        'float': 'float 3s ease-in-out infinite',
+                        'pulse-glow': 'pulseGlow 2s infinite',
+                        'bounce-subtle': 'bounceSubtle 1.5s infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        pulseGlow: {
+                            '0%, 100%': { opacity: '0.6', filter: 'drop-shadow(0 0 15px rgba(59, 130, 246, 0.5))' },
+                            '50%': { opacity: '1', filter: 'drop-shadow(0 0 25px rgba(168, 85, 247, 0.8))' },
+                        },
+                        bounceSubtle: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-4px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .chat-scroll::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .chat-scroll::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.6);
+            border-radius: 9999px;
+        }
+        .chat-scroll::-webkit-scrollbar-thumb {
+            background: rgba(59, 130, 246, 0.4);
+            border-radius: 9999px;
+        }
+        .chat-scroll::-webkit-scrollbar-thumb:hover {
+            background: rgba(59, 130, 246, 0.7);
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.75);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo-frame {
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.2);
+            background: rgba(15, 23, 42, 0.95);
+        }
+
+        .dot-flashing {
+            position: relative;
+            width: 8px;
+            height: 8px;
+            border-radius: 5px;
+            background-color: #a855f7;
+            color: #a855f7;
+            animation: dot-flashing 1s infinite linear alternate;
+            animation-delay: 0.5s;
+        }
+        .dot-flashing::before, .dot-flashing::after {
+            content: "";
+            display: inline-block;
+            position: absolute;
+            top: 0;
+            width: 8px;
+            height: 8px;
+            border-radius: 5px;
+            background-color: #a855f7;
+            color: #a855f7;
+        }
+        .dot-flashing::before {
+            left: -12px;
+            animation: dot-flashing 1s infinite alternate;
+            animation-delay: 0s;
+        }
+        .dot-flashing::after {
+            left: 12px;
+            animation: dot-flashing 1s infinite alternate;
+            animation-delay: 1s;
+        }
+        @keyframes dot-flashing {
+            0% { background-color: #a855f7; }
+            50%, 100% { background-color: rgba(168, 85, 247, 0.2); }
+        }
+
+        @media print {
+            body { background: white !important; color: black !important; }
+            .no-print { display: none !important; }
+            .print-only { display: block !important; }
+            .glass-panel { background: white !important; border: 1px solid #ccc !important; color: black !important; box-shadow: none !important; }
+            .text-white, .text-slate-100, .text-slate-200, .text-slate-300 { color: #111 !important; }
+            .logo-frame { background: #0f172a !important; border: 1px solid #334155 !important; }
+        }
+    </style>
+</head>
+<body class="h-full flex flex-col font-sans antialiased selection:bg-brand-500 selection:text-white">
+
+    <!-- BACKGROUND DECORATIONS -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none -z-10 no-print">
+        <div class="absolute -top-40 -left-40 w-96 h-96 bg-brand-600/20 rounded-full blur-3xl"></div>
+        <div class="absolute top-1/3 -right-40 w-96 h-96 bg-ai-purple/20 rounded-full blur-3xl"></div>
+        <div class="absolute -bottom-40 left-1/3 w-96 h-96 bg-ai-cyan/20 rounded-full blur-3xl"></div>
+    </div>
+
+    <header class="w-full bg-slate-950/80 border-b border-slate-800 py-2 px-4 no-print sticky top-0 z-50 backdrop-blur-md">
+        <div class="max-w-5xl mx-auto flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <!-- Framed Bilfen Logo Element with White Logo -->
+                <div class="logo-frame rounded-xl overflow-hidden py-1 px-3 flex items-center justify-center bg-slate-950 h-10 min-w-[130px]">
+                    <img src="BİLFEN BEYAZ LOGO.png" alt="Bilfen Okulları" 
+                         onerror="this.onerror=null; this.parentNode.innerHTML='<div class=\'flex items-center gap-1.5 font-extrabold text-white tracking-wider text-xs uppercase\'><i class=\'fa-solid fa-graduation-cap text-red-500\'></i> BİLFEN</div>';" 
+                         class="h-7 w-auto object-contain">
+                </div>
+                <div class="hidden sm:block border-l border-slate-700 pl-3">
+                    <span class="text-xs font-bold text-slate-300 block">BİLİŞİM TEKNOLOJİLERİ</span>
+                    <span class="text-[10px] text-ai-cyan">Yapay Zekâ ve Zekâ Keşif Modülü</span>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-2">
+                <span class="text-xs bg-slate-800 text-slate-300 px-3 py-1 rounded-full border border-slate-700 flex items-center gap-1.5 font-medium">
+                    <i class="fa-solid fa-brain text-brand-400"></i>
+                    <span>7. Sınıf Keşif</span>
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <div id="app" class="flex-1 flex flex-col max-w-5xl w-full mx-auto p-2 sm:p-4 h-full">
+
+        <!-- VIEW 1: WELCOME SCREEN -->
+        <section id="welcomeScreen" class="flex-1 flex flex-col justify-center items-center text-center my-auto py-6 px-4">
+            
+            <!-- Prominent Framed Logo Display with White Logo -->
+            <div class="mb-5 logo-frame p-3 rounded-2xl shadow-2xl max-w-xs w-full bg-slate-950/90 border border-slate-700/80 flex flex-col items-center">
+                <img src="BİLFEN BEYAZ LOGO.png" alt="Bilfen Beyaz Logo" 
+                     onerror="this.onerror=null; this.parentNode.innerHTML='<div class=\'py-2 text-center\'><h2 class=\'text-xl font-black text-white tracking-widest uppercase\'>BİLFEN</h2><p class=\'text-[10px] text-slate-400 font-bold uppercase tracking-wider\'>Eğitim Kurumları</p></div>';" 
+                     class="max-h-12 w-auto object-contain py-1">
+            </div>
+
+            <div class="relative mb-6">
+                <div class="w-24 h-24 sm:w-32 sm:h-32 rounded-3xl bg-gradient-to-tr from-brand-600 via-ai-purple to-ai-cyan p-1 animate-pulse-glow flex items-center justify-center">
+                    <div class="w-full h-full bg-slate-900 rounded-[22px] flex items-center justify-center relative overflow-hidden">
+                        <svg class="w-14 h-14 sm:w-16 sm:h-16 text-ai-cyan animate-float" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19 14.5M14.25 3.104c.251.023.501.05.75.082M19 14.5l-2.47 2.47a2.25 2.25 0 01-1.591.659H9.061a2.25 2.25 0 01-1.591-.659L5 14.5m14 0V17a2.25 2.25 0 01-2.25 2.25H7.25A2.25 2.25 0 015 17v-2.5m14 0a2.25 2.25 0 002.25-2.25v-1.5a2.25 2.25 0 00-2.25-2.25M5 14.5A2.25 2.25 0 012.75 12.25v-1.5A2.25 2.25 0 015 8.5"></path>
+                            <circle cx="9" cy="12" r="1.5" fill="#06b6d4" />
+                            <circle cx="15" cy="12" r="1.5" fill="#06b6d4" />
+                        </svg>
+                    </div>
+                </div>
+                <span class="absolute -bottom-2 right-0 bg-emerald-500 text-slate-900 text-xs font-bold px-2.5 py-1 rounded-full flex items-center gap-1 shadow-lg border border-slate-900">
+                    <span class="w-2 h-2 rounded-full bg-slate-900 animate-ping"></span> YZ Keşif Rehberi
+                </span>
+            </div>
+
+            <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-500/10 border border-brand-500/20 text-brand-400 text-xs sm:text-sm font-semibold mb-3">
+                <i class="fa-solid fa-graduation-cap"></i> 7. Sınıf Bilişim Teknolojileri Keşif Modülü (15-20 Dakika)
+            </div>
+
+            <h1 class="text-2xl sm:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-slate-300 mb-3 max-w-2xl leading-tight">
+                🤖 Yapay Zekâ mı, İnsan Zekâsı mı?
+            </h1>
+
+            <p class="text-slate-300 text-sm sm:text-base max-w-xl mb-6 leading-relaxed">
+                Bugün sana ezber yanıtlar vermeyeceğiz. Sokratik bir rehber eşliğinde <span class="text-ai-cyan font-semibold">12 adımlı keşif yolculuğunda</span> kendi cevaplarını kendin bulacaksın!
+            </p>
+
+            <!-- Student Name Input Card -->
+            <div class="w-full max-w-md glass-panel p-5 rounded-2xl shadow-2xl mb-5 text-left border border-slate-700/50">
+                <label for="studentName" class="block text-sm font-medium text-slate-300 mb-2 flex items-center gap-2">
+                    <i class="fa-solid fa-user-astronaut text-ai-purple"></i> İsminizi Girin:
+                </label>
+                <input type="text" id="studentName" placeholder="Örn: Ali veya Zeynep" 
+                    class="w-full px-4 py-3 rounded-xl bg-slate-950/80 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-ai-purple focus:border-transparent transition-all mb-3 text-base">
+                
+                <p class="text-xs text-slate-400 flex items-center gap-1.5">
+                    <i class="fa-solid fa-shield-halved text-emerald-400"></i>
+                    <span>Gizlilik Sözü: Hiçbir kişisel veri kaydedilmez veya saklanmaz.</span>
+                </p>
+            </div>
+
+            <button id="startBtn" onclick="startDiscovery()" 
+                class="w-full max-w-md py-4 px-8 rounded-xl bg-gradient-to-r from-brand-600 via-ai-purple to-ai-pink text-white font-bold text-lg shadow-lg hover:shadow-brand-500/25 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-3 group">
+                <i class="fa-solid fa-rocket"></i>
+                <span>Keşif Yolculuğunu Başlat</span>
+                <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+            </button>
+        </section>
+
+        <!-- VIEW 2: CHAT SCREEN -->
+        <section id="chatScreen" class="hidden flex-1 flex-col h-full overflow-hidden">
+
+            <!-- HEADER / 12-STEP PROGRESS MAP -->
+            <header class="glass-panel rounded-2xl p-3 mb-2 flex flex-col gap-2 shadow-lg">
+                <div class="flex items-center justify-between">
+                    <!-- AI Guide Header -->
+                    <div class="flex items-center gap-3">
+                        <div class="relative">
+                            <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-tr from-brand-500 to-ai-purple flex items-center justify-center shadow-md">
+                                <i class="fa-solid fa-robot text-white text-lg"></i>
+                            </div>
+                            <span class="absolute bottom-0 right-0 w-3 h-3 bg-emerald-500 border-2 border-slate-900 rounded-full"></span>
+                        </div>
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <h2 class="font-bold text-slate-100 text-sm sm:text-base">YZ Keşif Rehberi</h2>
+                                <span class="bg-brand-500/20 text-brand-300 text-[10px] font-bold px-2 py-0.5 rounded-full border border-brand-500/30">Keşif Koçu</span>
+                            </div>
+                            <p class="text-xs text-slate-400" id="chatSubtitle">Seni dinliyor ve birlikte düşünüyor...</p>
+                        </div>
+                    </div>
+
+                    <!-- Actions & Hint -->
+                    <div class="flex items-center gap-2">
+                        <button onclick="triggerHint()" id="hintBtn" class="px-3 py-1.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/40 text-amber-300 text-xs font-bold transition-all flex items-center gap-1.5 shadow-sm">
+                            <i class="fa-solid fa-lightbulb text-amber-400"></i>
+                            <span>İpucu</span>
+                        </button>
+
+                        <div class="hidden sm:flex flex-col text-right px-2 border-l border-slate-700">
+                            <span class="text-[10px] text-slate-400 uppercase">Keşifçi</span>
+                            <span id="displayStudentName" class="text-xs font-bold text-ai-cyan truncate max-w-[100px]">Öğrenci</span>
+                        </div>
+
+                        <button onclick="resetSession()" title="Sohbeti Yeniden Başlat" class="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white transition-colors text-xs">
+                            <i class="fa-solid fa-rotate-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 12-STEP SCROLLABLE PROGRESS TRACKER -->
+                <div class="space-y-1 pt-1 border-t border-slate-700/60">
+                    <div class="flex justify-between items-center text-xs">
+                        <span class="font-bold text-slate-200 flex items-center gap-1.5" id="currentStageTitle">
+                            <i class="fa-solid fa-compass text-ai-cyan"></i> Aşama 1: Zekâ deyince aklına ne geliyor?
+                        </span>
+                        <span class="text-slate-400 font-mono text-[11px]" id="stageCounter">Durak 1 / 12</span>
+                    </div>
+
+                    <!-- Visual Step Icons (1 to 12) -->
+                    <div class="flex items-center gap-1 overflow-x-auto pb-1 chat-scroll no-scrollbar pt-1">
+                        <div id="step-btn-1" class="step-badge px-2 py-1 rounded-lg bg-brand-600 text-white text-[11px] font-bold shrink-0 flex items-center gap-1 border border-brand-400">🧠 1</div>
+                        <div id="step-btn-2" class="step-badge px-2 py-1 rounded-lg bg-slate-800 text-slate-400 text-[11px] font-semibold shrink-0 flex items-center gap-1 border border-slate-700">🔍 2</div>
+                        <div id="step-btn-3" class="step-badge px-2 py-1 rounded-lg bg-slate-800 text-slate-400 text-[11px] font-semibold shrink-0 flex items-center gap-1 border border-slate-700">💡 3</div>
+                        <div id="step-btn-4" class="step-badge px-2 py-1 rounded-lg bg-slate-800 text-slate-400 text-[11px] font-semibold shrink-0 flex items-center gap-1 border border-slate-700">🤖 4</div>
+                        <div id="step-btn-5" class="step-badge px-2 py-1 rounded-lg bg-slate-800 text-slate-400 text-[11px] font-semibold shrink-0 flex items-center gap-1 border border-slate-700">⚙️ 5</div>
+                        <div id="step-btn-6" class="step-badge px-2 py-1 rounded-lg bg-slate-800 text-slate-400 text-[11px] font-semibold shrink-0 flex items-center gap-1 border border-slate-700">🔄 6</div>
+                        <div id="step-btn-7" class="step-badge px-2 py-1 rounded-lg bg-slate-800 text-slate-400 text-[11px] font-semibold shrink-0 flex items-center gap-1 border border-slate-700">🆚 7</div>
+                        <div id="step-btn-8" class="step-badge px-2 py-1 rounded-lg bg-slate-800 text-slate-400 text-[11px] font-semibold shrink-0 flex items-center gap-1 border border-slate-700">❤️ 8</div>
+                        <div id="step-btn-9" class="step-badge px-2 py-1 rounded-lg bg-slate-800 text-slate-400 text-[11px] font-semibold shrink-0 flex items-center gap-1 border border-slate-700">🧩 9</div>
+                        <div id="step-btn-10" class="step-badge px-2 py-1 rounded-lg bg-slate-800 text-slate-400 text-[11px] font-semibold shrink-0 flex items-center gap-1 border border-slate-700">🎯 10</div>
+                        <div id="step-btn-11" class="step-badge px-2 py-1 rounded-lg bg-slate-800 text-slate-400 text-[11px] font-semibold shrink-0 flex items-center gap-1 border border-slate-700">✍️ 11</div>
+                        <div id="step-btn-12" class="step-badge px-2 py-1 rounded-lg bg-slate-800 text-slate-400 text-[11px] font-semibold shrink-0 flex items-center gap-1 border border-slate-700">🚀 12</div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- CHAT MESSAGES CONTAINER -->
+            <div id="chatContainer" class="flex-1 glass-panel rounded-2xl p-3 sm:p-4 overflow-y-auto chat-scroll flex flex-col gap-3 mb-2 border border-slate-700/50 relative">
+                <!-- Messages will be rendered dynamically -->
+            </div>
+
+            <!-- INTERACTIVE WIDGET PANEL (Dynamically shown during Stage 6, 7, 9, 10, etc.) -->
+            <div id="interactivePanel" class="hidden mb-2 p-3 rounded-2xl glass-panel border border-brand-500/30">
+                <!-- Dynamic Widget content injected via JS -->
+            </div>
+
+            <!-- QUICK SUGGESTIONS PROMPTS -->
+            <div id="quickPrompts" class="hidden flex gap-2 overflow-x-auto pb-2 px-1 text-xs no-scrollbar">
+                <!-- Dynamic prompt chips -->
+            </div>
+
+            <!-- CHAT INPUT AREA -->
+            <div class="glass-panel rounded-2xl p-2 sm:p-3 border border-slate-700/50">
+                <form id="chatForm" onsubmit="handleUserSubmit(event)" class="flex items-center gap-2">
+                    <textarea id="userInput" rows="1" placeholder="Düşüncelerini buraya yaz..." 
+                        onkeydown="checkEnter(event)"
+                        class="flex-1 px-4 py-3 rounded-xl bg-slate-950/80 border border-slate-700/80 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-500 resize-none text-sm sm:text-base max-h-24"></textarea>
+                    
+                    <button type="submit" id="sendBtn" 
+                        class="h-11 px-5 rounded-xl bg-gradient-to-r from-brand-600 to-ai-purple text-white font-bold hover:opacity-90 active:scale-95 transition-all flex items-center justify-center shrink-0 disabled:opacity-50 disabled:cursor-not-allowed">
+                        <i class="fa-solid fa-paper-plane text-base"></i>
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- VIEW 3: SYNTHESIS SCREEN -->
+        <section id="synthesisScreen" class="hidden flex-1 flex-col h-full my-auto py-4 overflow-y-auto chat-scroll">
+            <div class="max-w-2xl mx-auto w-full glass-panel p-6 sm:p-8 rounded-3xl shadow-2xl border border-slate-700">
+                
+                <div class="flex justify-center mb-4">
+                    <div class="logo-frame px-3 py-1.5 rounded-xl flex items-center justify-center bg-slate-950 border border-slate-700">
+                        <img src="BİLFEN BEYAZ LOGO.png" alt="Bilfen" onerror="this.onerror=null; this.parentNode.innerHTML='<span class=\'font-black text-white text-xs tracking-wider uppercase\'>BİLFEN OKULLARI</span>';" class="h-7 w-auto">
+                    </div>
+                </div>
+
+                <div class="text-center mb-6">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/20 border border-brand-500/40 text-brand-300 text-xs font-bold mb-3">
+                        <i class="fa-solid fa-pen-fancy"></i> Aşama 11: Sen Olsaydın Nasıl Tanımlardın?
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-2">
+                        ✍️ Kendi Tanımlarını Oluştur
+                    </h2>
+                    <p class="text-slate-300 text-sm">
+                        Sohbet boyunca keşfettiğin fikirlerden hareketle, aşağıdaki soruları kendi cümlelerinle ifade et:
+                    </p>
+                </div>
+
+                <form id="synthesisForm" onsubmit="handleSynthesisSubmit(event)" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-semibold text-brand-300 mb-1 flex items-center gap-2">
+                            <span>🧠 1. Kendi cümlelerinle zekâyı nasıl tanımlarsın?</span>
+                        </label>
+                        <textarea id="synIntelligence" required rows="2" placeholder="Örn: Problem çözebilme, yeni durumlara uyum sağlama ve deneyimlerden öğrenme..."
+                            class="w-full px-4 py-2.5 rounded-xl bg-slate-950/80 border border-slate-700 text-white placeholder-slate-500 focus:ring-2 focus:ring-brand-500 text-sm"></textarea>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-semibold text-ai-cyan mb-1 flex items-center gap-2">
+                            <span>🤖 2. Kendi cümlelerinle yapay zekâyı nasıl tanımlarsın?</span>
+                        </label>
+                        <textarea id="synAI" required rows="2" placeholder="Örn: İnsanların kodladığı, verileri işleyip örüntüler bularak mantıklı kararlar veren sistemler..."
+                            class="w-full px-4 py-2.5 rounded-xl bg-slate-950/80 border border-slate-700 text-white placeholder-slate-500 focus:ring-2 focus:ring-ai-cyan text-sm"></textarea>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-semibold text-ai-purple mb-1 flex items-center gap-2">
+                            <span>🔄 3. İnsan zekâsı ile yapay zekânın iki benzerliği nedir?</span>
+                        </label>
+                        <textarea id="synSimilarities" required rows="2" placeholder="Örn: 1) İkisi de bir problemi çözebilir. 2) İkisi de verilerden ve tecrübelerden öğrenebilir..."
+                            class="w-full px-4 py-2.5 rounded-xl bg-slate-950/80 border border-slate-700 text-white placeholder-slate-500 focus:ring-2 focus:ring-ai-purple text-sm"></textarea>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-semibold text-ai-pink mb-1 flex items-center gap-2">
+                            <span>⚡ 4. İnsan zekâsı ile yapay zekânın iki önemli farkı nedir?</span>
+                        </label>
+                        <textarea id="synDifferences" required rows="2" placeholder="Örn: 1) İnsanın bilinci ve gerçek duyguları vardır. 2) İnsan yaşayarak, yapay zekâ veriyle öğrenir..."
+                            class="w-full px-4 py-2.5 rounded-xl bg-slate-950/80 border border-slate-700 text-white placeholder-slate-500 focus:ring-2 focus:ring-ai-pink text-sm"></textarea>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-semibold text-amber-300 mb-1 flex items-center gap-2">
+                            <span>💡 5. Bugün fark ettiğin en önemli şey ne oldu?</span>
+                        </label>
+                        <textarea id="synKeyTakeaway" required rows="2" placeholder="Örn: Yapay zekânın düşündüğünü sanıyordum ama aslında sadece veri örüntülerini eşleştiriyormuş!"
+                            class="w-full px-4 py-2.5 rounded-xl bg-slate-950/80 border border-slate-700 text-white placeholder-slate-500 focus:ring-2 focus:ring-amber-500 text-sm"></textarea>
+                    </div>
+
+                    <button type="submit" 
+                        class="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-emerald-500 via-teal-600 to-brand-600 text-white font-bold text-base shadow-lg hover:opacity-90 active:scale-95 transition-all flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-trophy"></i>
+                        <span>Büyük Keşif Kartımı Oluştur (Aşama 12)</span>
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- VIEW 4: SUMMARY / CARD DISCOVERY SCREEN -->
+        <section id="summaryScreen" class="hidden flex-1 flex-col h-full my-auto py-6 overflow-y-auto chat-scroll">
+            <div class="max-w-2xl mx-auto w-full glass-panel p-6 sm:p-8 rounded-3xl shadow-2xl border border-slate-700 text-center relative overflow-hidden">
+                
+                <!-- Bilfen Framed Header with White Logo for Printable Card -->
+                <div class="mb-4 flex items-center justify-between border-b border-slate-800 pb-3">
+                    <div class="logo-frame p-1.5 rounded-xl bg-slate-950 border border-slate-700">
+                        <img src="BİLFEN BEYAZ LOGO.png" alt="Bilfen Okulları" 
+                             onerror="this.onerror=null; this.parentNode.innerHTML='<span class=\'font-black text-white px-2 text-xs tracking-widest uppercase\'>BİLFEN OKULLARI</span>';" 
+                             class="h-8 w-auto">
+                    </div>
+                    <div class="text-right">
+                        <span class="text-xs font-bold text-slate-300 block">7. SINIF BİLİŞİM TEKNOLOJİLERİ</span>
+                        <span class="text-[10px] text-emerald-400 font-mono">Keşif Raporu #12</span>
+                    </div>
+                </div>
+
+                <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-brand-500 via-ai-purple to-ai-pink p-0.5 mx-auto mb-3 flex items-center justify-center">
+                    <div class="w-full h-full bg-slate-900 rounded-[14px] flex items-center justify-center text-3xl">
+                        🎓
+                    </div>
+                </div>
+
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-1">
+                    🎓 Yapay Zekâ ve Zekâ Hakkında Benim Keşiflerim
+                </h2>
+                <p class="text-slate-400 text-sm mb-6">
+                    Tebrikler <span id="summaryStudentName" class="text-ai-cyan font-bold">Öğrenci</span>! İşte 12 aşamalı keşif yolculuğun sonunda senin kendi cümlelerinle oluşan keşif kartın:
+                </p>
+
+                <!-- Printable Discovery Card -->
+                <div id="printableCard" class="text-left bg-slate-950/80 p-5 rounded-2xl border border-slate-800 space-y-4 mb-6 shadow-inner">
+                    <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">ÖĞRENCİ KEŞİF KARTI</span>
+                        <span class="text-xs font-bold text-brand-400" id="cardDate">7. Sınıf Bilişim Teknolojileri</span>
+                    </div>
+
+                    <div class="border-b border-slate-800 pb-3">
+                        <span class="text-xs font-bold text-brand-400 uppercase tracking-wider block mb-1">
+                            🧠 1. Benim Zekâ Tanımım:
+                        </span>
+                        <p id="outIntelligence" class="text-sm text-slate-200 font-medium pl-2 border-l-2 border-brand-500"></p>
+                    </div>
+
+                    <div class="border-b border-slate-800 pb-3">
+                        <span class="text-xs font-bold text-ai-cyan uppercase tracking-wider block mb-1">
+                            🤖 2. Benim Yapay Zekâ Tanımım:
+                        </span>
+                        <p id="outAI" class="text-sm text-slate-200 font-medium pl-2 border-l-2 border-ai-cyan"></p>
+                    </div>
+
+                    <div class="border-b border-slate-800 pb-3">
+                        <span class="text-xs font-bold text-ai-purple uppercase tracking-wider block mb-1">
+                            🔄 3. Keşfettiğim Benzerlikler:
+                        </span>
+                        <p id="outSimilarities" class="text-sm text-slate-200 font-medium pl-2 border-l-2 border-ai-purple"></p>
+                    </div>
+
+                    <div class="border-b border-slate-800 pb-3">
+                        <span class="text-xs font-bold text-ai-pink uppercase tracking-wider block mb-1">
+                            ⚡ 4. Keşfettiğim Farklılıklar:
+                        </span>
+                        <p id="outDifferences" class="text-sm text-slate-200 font-medium pl-2 border-l-2 border-ai-pink"></p>
+                    </div>
+
+                    <div>
+                        <span class="text-xs font-bold text-amber-400 uppercase tracking-wider block mb-1">
+                            💡 5. Bugün Fark Ettiğim En Önemli Şey:
+                        </span>
+                        <p id="outKeyTakeaway" class="text-sm text-slate-200 font-medium pl-2 border-l-2 border-amber-500"></p>
+                    </div>
+                </div>
+
+                <!-- Teacher Banner -->
+                <div class="p-4 rounded-xl bg-gradient-to-r from-brand-900/50 to-ai-purple/50 border border-brand-500/30 text-slate-200 text-sm font-semibold mb-6 flex items-center justify-center gap-3">
+                    <span class="text-2xl animate-bounce-subtle">🚀</span>
+                    <span>Artık öğretmeninizle konuyu daha ayrıntılı incelemeye hazırsınız!</span>
+                </div>
+
+                <!-- Actions -->
+                <div class="flex flex-col sm:flex-row gap-3 no-print">
+                    <button onclick="window.print()" class="flex-1 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-semibold text-sm transition-colors flex items-center justify-center gap-2 border border-slate-700">
+                        <i class="fa-solid fa-print text-ai-cyan"></i>
+                        <span>Öğretmenimle Paylaş / Yazdır</span>
+                    </button>
+                    <button onclick="resetSession()" class="flex-1 py-3 rounded-xl bg-gradient-to-r from-brand-600 to-ai-purple text-white font-semibold text-sm hover:opacity-90 transition-opacity flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-rotate-right"></i>
+                        <span>Yeni Keşif Başlat</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        
+        // --- APPLICATION STATE ---
+        const state = {
+            studentName: '',
+            currentStage: 1, // 1 to 12
+            interactionCountInStage: 0,
+            chatHistory: [],
+            synthesisData: {},
+            isWaitingForAI: false,
+            memory: {
+                initialIntelligenceDef: "",
+                smartBehaviors: [],
+                aiExamples: [],
+                miniStoryWords: [],
+                comparisonChoices: {},
+                similaritySelections: [],
+                differenceSelections: []
+            }
+        };
+
+        // --- 12 STAGES METADATA ---
+        const STAGE_TITLES = {
+            1: "🧠 Aşama 1: Zekâ deyince aklına ne geliyor?",
+            2: "🔍 Aşama 2: Zeki davranışları keşfedelim",
+            3: "💡 Aşama 3: Her zeki davranış aynı mı?",
+            4: "🤖 Aşama 4: Bilgisayarlar da zeki olabilir mi?",
+            5: "⚙️ Aşama 5: Yapay zekâ ile tanış",
+            6: "🔄 Aşama 6: Bir chatbot nasıl cevap veriyor?",
+            7: "🆚 Aşama 7: İnsan mı, yapay zekâ mı?",
+            8: "❤️ Aşama 8: Duygular ve anlayış",
+            9: "🧩 Aşama 9: Benzerlik avı 🔎",
+            10: "🎯 Aşama 10: Farklılık dedektifi 🕵️",
+            11: "✍️ Aşama 11: Sen olsaydın nasıl tanımlardın?",
+            12: "🚀 Aşama 12: Büyük keşif 🎯"
+        };
+
+        const STAGE_HINTS = {
+            1: "İnsanların bilgi öğrenmesini, problemleri çözmesini veya zor durumlarda mantıklı kararlar almasını düşün.",
+            2: "Sadece ders çalışmak değil; bozulan bir şeyi tamir etmek veya kuralları hızlıca kapmak da birer örnektir.",
+            3: "Farklı alanlarda olsa da hepsinde beyin bilgi işler, geçmiş tecrübelerden ders çıkarır.",
+            4: "Yüz tanıma, video önerisi ve robot süpürge arka planda verileri inceleyip bir karar verir.",
+            5: "İnsanlar tarafından yapıldığı (kodlandığı) için 'yapay' denir. Doğada kendiliğinden oluşmamıştır.",
+            6: "Chatbotlar tıpkı bir kelime yapbozu gibi, öğrendikleri milyonlarca cümleden kalıplar eşleştirir.",
+            7: "Şiir yazmak veya duygulanmak insan kalbi ve bilinci gerektirirken, matematik sorusu hızlı veridir.",
+            8: "Chatbot 'üzgün olduğunu anlıyorum' derken bunu hissetmez, sadece o cümleyi kural olarak yazar.",
+            9: "Hem insan hem yapay zekâ bilgi işler, soruya yanıt verir ve verilerden öğrenir.",
+            10: "İnsan bilince, biyolojik vücuda ve duygulara sahiptir. Yapay zekâ ise elektrik, kod ve verilerle çalışır.",
+            11: "Hiçbir tanım yanlış değildir! Sohbet boyunca keşfettiğin kendi kelimelerini kullan.",
+            12: "Tebrikler! Keşif kartını yazdırıp öğretmenine gösterebilirsin."
+        };
+
+        function playSound(type) {
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+
+                if (type === 'send') {
+                    osc.frequency.setValueAtTime(440, ctx.currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.1);
+                    gain.gain.setValueAtTime(0.08, ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.1);
+                    osc.start();
+                    osc.stop(ctx.currentTime + 0.1);
+                } else if (type === 'receive') {
+                    osc.frequency.setValueAtTime(587.33, ctx.currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(1174.66, ctx.currentTime + 0.12);
+                    gain.gain.setValueAtTime(0.08, ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.12);
+                    osc.start();
+                    osc.stop(ctx.currentTime + 0.12);
+                } else if (type === 'levelup') {
+                    osc.frequency.setValueAtTime(523.25, ctx.currentTime);
+                    osc.frequency.setValueAtTime(659.25, ctx.currentTime + 0.08);
+                    osc.frequency.setValueAtTime(783.99, ctx.currentTime + 0.16);
+                    gain.gain.setValueAtTime(0.1, ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.3);
+                    osc.start();
+                    osc.stop(ctx.currentTime + 0.3);
+                }
+            } catch (e) {}
+        }
+
+        function startDiscovery() {
+            const nameInput = document.getElementById('studentName').value.trim();
+            state.studentName = nameInput || 'Maceracı';
+            document.getElementById('displayStudentName').textContent = state.studentName;
+
+            document.getElementById('welcomeScreen').classList.add('hidden');
+            document.getElementById('chatScreen').classList.remove('hidden');
+            document.getElementById('chatScreen').classList.add('flex');
+
+            playSound('levelup');
+
+            // Initial Stage 1 Start
+            const greeting = `Merhaba **${state.studentName}**! 👋 Ben Bilfen YZ Keşif Rehberin.\n\nBugün sana ezber yanıtlar vermeyeceğim. 12 adımlık eğlenceli sohbet yolculuğumuzda kendi yanıtlarını keşfedeceksin!\n\n**AŞAMA 1 (🧠 Zekâ)** sorumuzla başlayalım:\n**'Zekâ' kelimesini duyduğunda aklına ilk ne geliyor? Sence zeki olmak ne demektir?** 🤔`;
+            
+            appendMessage('bot', greeting);
+            updateStageUI();
+            updateQuickPrompts([
+                "Problem çözebilmek",
+                "Çok hızlı öğrenmek",
+                "Zor sorulara cevap vermek",
+                "Yeni durumlara uyum sağlamak",
+                "Mantıklı kararlar alabilmek"
+            ]);
+        }
+
+        function triggerHint() {
+            const hint = STAGE_HINTS[state.currentStage] || "İpuçlarını düşünerek kendi cevabını vermeye çalış!";
+            appendMessage('bot', `💡 **Sana Küçük Bir İpucu:**\n_${hint}_`);
+            playSound('receive');
+        }
+
+        function checkEnter(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                handleUserSubmit(e);
+            }
+        }
+
+        function updateStageUI() {
+            const title = STAGE_TITLES[state.currentStage] || "";
+            document.getElementById('currentStageTitle').innerHTML = `<i class="fa-solid fa-compass text-ai-cyan"></i> ${title}`;
+            document.getElementById('stageCounter').textContent = `Durak ${state.currentStage} / 12`;
+
+            // Update step badges
+            for (let i = 1; i <= 12; i++) {
+                const badge = document.getElementById(`step-btn-${i}`);
+                if (!badge) continue;
+
+                if (i < state.currentStage) {
+                    badge.className = "step-badge px-2 py-1 rounded-lg bg-emerald-500/20 text-emerald-300 text-[11px] font-bold shrink-0 border border-emerald-500/40";
+                } else if (i === state.currentStage) {
+                    badge.className = "step-badge px-2.5 py-1 rounded-lg bg-brand-600 text-white text-[11px] font-bold shrink-0 border border-brand-400 ring-2 ring-brand-400/40 animate-pulse";
+                    badge.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                } else {
+                    badge.className = "step-badge px-2 py-1 rounded-lg bg-slate-800 text-slate-500 text-[11px] font-semibold shrink-0 border border-slate-700/60";
+                }
+            }
+
+            // Render interactive widgets for special stages
+            renderStageWidget();
+        }
+
+        function appendMessage(sender, text) {
+            const container = document.getElementById('chatContainer');
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `flex gap-2.5 text-sm sm:text-base max-w-[90%] sm:max-w-[82%] ${sender === 'user' ? 'self-end flex-row-reverse' : 'self-start'}`;
+
+            const avatar = document.createElement('div');
+            avatar.className = `w-8 h-8 rounded-xl flex items-center justify-center shrink-0 text-xs font-bold ${
+                sender === 'user' 
+                ? 'bg-gradient-to-tr from-ai-purple to-ai-pink text-white shadow-md' 
+                : 'bg-gradient-to-tr from-brand-600 to-ai-cyan text-white shadow-md'
+            }`;
+            avatar.innerHTML = sender === 'user' ? '<i class="fa-solid fa-user"></i>' : '<i class="fa-solid fa-robot"></i>';
+
+            const bubble = document.createElement('div');
+            bubble.className = `p-3.5 rounded-2xl shadow-md ${
+                sender === 'user'
+                ? 'bg-gradient-to-r from-brand-600 to-brand-700 text-white rounded-tr-none'
+                : 'bg-slate-800/90 border border-slate-700/80 text-slate-100 rounded-tl-none leading-relaxed'
+            }`;
+
+            let formattedText = text
+                .replace(/\*\*(.*?)\*\*/g, '<strong class="text-ai-cyan font-bold">$1</strong>')
+                .replace(/_(.*?)_/g, '<em class="text-amber-300">$1</em>')
+                .replace(/\n/g, '<br>');
+
+            bubble.innerHTML = formattedText;
+
+            msgDiv.appendChild(avatar);
+            msgDiv.appendChild(bubble);
+            container.appendChild(msgDiv);
+
+            container.scrollTop = container.scrollHeight;
+
+            if (sender === 'user') playSound('send');
+            else playSound('receive');
+        }
+
+        function showTypingIndicator() {
+            const container = document.getElementById('chatContainer');
+            const typingDiv = document.createElement('div');
+            typingDiv.id = 'typingIndicator';
+            typingDiv.className = 'flex gap-2 text-sm self-start items-center my-1';
+            typingDiv.innerHTML = `
+                <div class="w-7 h-7 rounded-lg bg-slate-800 flex items-center justify-center text-ai-cyan text-xs">
+                    <i class="fa-solid fa-robot"></i>
+                </div>
+                <div class="px-3 py-2 rounded-xl bg-slate-800/80 border border-slate-700 flex items-center gap-2">
+                    <span class="text-xs text-slate-400 font-medium">Rehber Düşünüyor</span>
+                    <div class="dot-flashing ml-3"></div>
+                </div>
+            `;
+            container.appendChild(typingDiv);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function hideTypingIndicator() {
+            const el = document.getElementById('typingIndicator');
+            if (el) el.remove();
+        }
+
+        function updateQuickPrompts(prompts) {
+            const container = document.getElementById('quickPrompts');
+            container.innerHTML = '';
+            if (!prompts || prompts.length === 0) {
+                container.classList.add('hidden');
+                return;
+            }
+            container.classList.remove('hidden');
+
+            prompts.forEach(p => {
+                const btn = document.createElement('button');
+                btn.className = "px-3 py-1.5 rounded-full bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 hover:text-white transition-colors text-xs whitespace-nowrap shrink-0 flex items-center gap-1.5 shadow-sm";
+                btn.innerHTML = `<i class="fa-solid fa-lightbulb text-amber-400"></i> ${p}`;
+                btn.onclick = () => {
+                    document.getElementById('userInput').value = p;
+                    handleUserSubmit(new Event('submit'));
+                };
+                container.appendChild(btn);
+            });
+        }
+
+        function renderStageWidget() {
+            const panel = document.getElementById('interactivePanel');
+            panel.innerHTML = '';
+            panel.classList.add('hidden');
+
+            // STAGE 6: Chatbot Story Generator Experiment Widget
+            if (state.currentStage === 6 && state.interactionCountInStage === 0) {
+                panel.classList.remove('hidden');
+                panel.innerHTML = `
+                    <div class="text-xs space-y-2">
+                        <div class="font-bold text-ai-cyan flex items-center gap-1">
+                            <i class="fa-solid fa-flask"></i> AŞAMA 6 DENEYİ: Bana 3 Rastgele Kelime Ver!
+                        </div>
+                        <p class="text-slate-300">Aşağıdaki kutulara aklına gelen 3 farklı kelime yaz. Sana anında bu kelimelerle kısa bir hikâye üreteceğim!</p>
+                        <div class="grid grid-cols-3 gap-2">
+                            <input type="text" id="w1" placeholder="Kelime 1" class="px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-white text-xs">
+                            <input type="text" id="w2" placeholder="Kelime 2" class="px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-white text-xs">
+                            <input type="text" id="w3" placeholder="Kelime 3" class="px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-white text-xs">
+                        </div>
+                        <button onclick="runStage6Experiment()" class="w-full py-2 bg-gradient-to-r from-ai-purple to-brand-600 text-white font-bold rounded-lg hover:opacity-90 transition-opacity flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i> Hikâye Oluştur ve Dene!
+                        </button>
+                    </div>
+                `;
+            }
+
+            // STAGE 7: Comparison Game Widget (Human vs AI vs Both)
+            else if (state.currentStage === 7) {
+                panel.classList.remove('hidden');
+                panel.innerHTML = `
+                    <div class="text-xs space-y-2">
+                        <div class="font-bold text-brand-300 flex items-center gap-1">
+                            <i class="fa-solid fa-gamepad"></i> AŞAMA 7: Kim Yapar? (Seç ve Nedenini Açıkla)
+                        </div>
+                        <p class="text-slate-300">Şu durumu değerlendir: **"Duygusal bir şiir yazmak"** veya **"Karmaşık bir matematik sorusunu hızlıca çözmek"**</p>
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-1.5">
+                            <button onclick="selectComparison('👤 İnsan')" class="p-2 rounded-lg bg-slate-800 hover:bg-brand-600 text-white font-semibold text-center border border-slate-700">👤 İnsan</button>
+                            <button onclick="selectComparison('🤖 Yapay Zekâ')" class="p-2 rounded-lg bg-slate-800 hover:bg-ai-cyan text-slate-900 font-semibold text-center border border-slate-700">🤖 Yapay Zekâ</button>
+                            <button onclick="selectComparison('👤🤖 İkisi de')" class="p-2 rounded-lg bg-slate-800 hover:bg-ai-purple text-white font-semibold text-center border border-slate-700">👤🤖 İkisi de</button>
+                            <button onclick="selectComparison('❓ Emin Değilim')" class="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-center border border-slate-700">❓ Emin Değilim</button>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // STAGE 9: Similarity Cards Selection
+            else if (state.currentStage === 9 && state.interactionCountInStage === 0) {
+                panel.classList.remove('hidden');
+                panel.innerHTML = `
+                    <div class="text-xs space-y-2">
+                        <div class="font-bold text-ai-purple flex items-center gap-1">
+                            <i class="fa-solid fa-puzzle-piece"></i> AŞAMA 9: Benzerlik Kartları Seçimi 🔎
+                        </div>
+                        <p class="text-slate-300">Hem insan hem de yapay zekâda ORTAK olduğunu düşündüğün en önemli özellikleri tıkla:</p>
+                        <div class="grid grid-cols-2 gap-1.5">
+                            <label class="flex items-center gap-2 p-2 rounded-lg bg-slate-950 border border-slate-800 cursor-pointer hover:border-brand-500">
+                                <input type="checkbox" value="Problem Çözme" class="sim-check rounded accent-brand-500"> <span>🧩 Problem Çözme</span>
+                            </label>
+                            <label class="flex items-center gap-2 p-2 rounded-lg bg-slate-950 border border-slate-800 cursor-pointer hover:border-brand-500">
+                                <input type="checkbox" value="Bilgilerden Yararlanma" class="sim-check rounded accent-brand-500"> <span>📚 Bilgiden Yararlanma</span>
+                            </label>
+                            <label class="flex items-center gap-2 p-2 rounded-lg bg-slate-950 border border-slate-800 cursor-pointer hover:border-brand-500">
+                                <input type="checkbox" value="Örüntü / Kalıp Fark Etme" class="sim-check rounded accent-brand-500"> <span>🔍 Örüntü Fark Etme</span>
+                            </label>
+                            <label class="flex items-center gap-2 p-2 rounded-lg bg-slate-950 border border-slate-800 cursor-pointer hover:border-brand-500">
+                                <input type="checkbox" value="Öğrenme / Gelişme" class="sim-check rounded accent-brand-500"> <span>🌱 Öğrenme & Gelişme</span>
+                            </label>
+                        </div>
+                        <button onclick="submitSimilarities()" class="w-full py-1.5 bg-brand-600 text-white font-bold rounded-lg hover:bg-brand-500 transition-colors">
+                            Benzerlikleri Onayla & Sohbete Gönder
+                        </button>
+                    </div>
+                `;
+            }
+
+            // STAGE 10: Difference Attribute Detective
+            else if (state.currentStage === 10 && state.interactionCountInStage === 0) {
+                panel.classList.remove('hidden');
+                panel.innerHTML = `
+                    <div class="text-xs space-y-2">
+                        <div class="font-bold text-ai-pink flex items-center gap-1">
+                            <i class="fa-solid fa-user-ninja"></i> AŞAMA 10: Farklılık Dedektifi 🕵️
+                        </div>
+                        <p class="text-slate-300">Şu özellik kime özgüdür? **"Gerçek duygular hissetmek ve bilince sahip olmak"**</p>
+                        <div class="grid grid-cols-2 gap-2">
+                            <button onclick="selectDifference('👤 İnsanlara Özgü')" class="p-2 rounded-lg bg-slate-800 hover:bg-ai-pink text-white font-semibold border border-slate-700">👤 Sadece İnsanlara Özgü</button>
+                            <button onclick="selectDifference('🤖 Yapay Zekâya Özgü')" class="p-2 rounded-lg bg-slate-800 hover:bg-ai-cyan text-slate-900 font-semibold border border-slate-700">🤖 Yapay Zekâya Özgü</button>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        function runStage6Experiment() {
+            const w1 = document.getElementById('w1').value.trim() || 'Uzay';
+            const w2 = document.getElementById('w2').value.trim() || 'Kedi';
+            const w3 = document.getElementById('w3').value.trim() || 'Pizza';
+
+            state.memory.miniStoryWords = [w1, w2, w3];
+            document.getElementById('interactivePanel').classList.add('hidden');
+
+            const userText = `Bana verdiğin 3 kelime: ${w1}, ${w2}, ${w3}`;
+            appendMessage('user', userText);
+
+            showTypingIndicator();
+            setTimeout(() => {
+                hideTypingIndicator();
+                const story = `Bir gün bir **${w2}**, **${w1}** yolculuğu yaparken acıkıp sıcacık bir **${w3}** siparişi verdi! 🚀\n\nŞimdi sana soruyorum **${state.studentName}**:\nBen bunu saniyeler içinde nasıl yapabildim? Sence ben **gerçekten düşündüm ve hissettim mi**, yoksa daha önce öğrendiğim kelime kalıplarını birleştirerek **bir cevap mı oluşturdum**? 🤔`;
+                appendMessage('bot', story);
+                updateQuickPrompts([
+                    "Kelime kalıplarını birleştirdin",
+                    "Gerçekten düşündün",
+                    "Veritabanındaki örnekleri kullandın",
+                    "Olası kelime dizilimlerini hesapladın",
+                    "Öğrendiğin metinleri taklit ettin"
+                ]);
+            }, 1000);
+        }
+
+        function selectComparison(choice) {
+            document.getElementById('interactivePanel').classList.add('hidden');
+            const prompt = `Seçimim: ${choice}`;
+            document.getElementById('userInput').value = prompt + " - Çünkü ";
+            document.getElementById('userInput').focus();
+            appendMessage('bot', `**${choice}** seçimini yaptın. Harika! Peki **neden böyle düşündün?** Kısa bir nedenle açıklar mısın?`);
+        }
+
+        function submitSimilarities() {
+            const checked = Array.from(document.querySelectorAll('.sim-check:checked')).map(c => c.value);
+            if (checked.length === 0) {
+                alert("Lütfen en az 1 ortak özellik seç!");
+                return;
+            }
+            state.memory.similaritySelections = checked;
+            document.getElementById('interactivePanel').classList.add('hidden');
+
+            const text = `Bence insan ve yapay zekânın en önemli ortak özellikleri: ${checked.join(', ')}`;
+            appendMessage('user', text);
+            handleUserSubmit(new Event('submit'), text);
+        }
+
+        function selectDifference(choice) {
+            document.getElementById('interactivePanel').classList.add('hidden');
+            state.memory.differenceSelections.push(choice);
+            const text = `Bence bu özellik: ${choice}`;
+            appendMessage('user', text);
+            handleUserSubmit(new Event('submit'), text);
+        }
+
+        async function handleUserSubmit(e, customMessage = null) {
+            if (e) e.preventDefault();
+            if (state.isWaitingForAI) return;
+
+            const inputEl = document.getElementById('userInput');
+            const message = customMessage || inputEl.value.trim();
+            if (!message) return;
+
+            if (!customMessage) {
+                inputEl.value = '';
+                appendMessage('user', message);
+            }
+
+            updateQuickPrompts([]);
+            state.chatHistory.push({ role: 'user', content: message });
+            state.interactionCountInStage++;
+
+            state.isWaitingForAI = true;
+            document.getElementById('sendBtn').disabled = true;
+            showTypingIndicator();
+
+            try {
+                const botResponse = await generate12StageSocraticResponse(message);
+                
+                hideTypingIndicator();
+                appendMessage('bot', botResponse.text);
+                state.chatHistory.push({ role: 'bot', content: botResponse.text });
+
+                if (botResponse.suggestions) {
+                    updateQuickPrompts(botResponse.suggestions);
+                }
+
+                if (botResponse.shouldAdvanceStage) {
+                    advanceStage();
+                }
+
+            } catch (err) {
+                hideTypingIndicator();
+                appendMessage('bot', "Çok ilgi çekici bir düşünce! Bunu bir adım daha öteye taşıyalım: Peki bir insan ile yapay zekâ bu durumda nasıl farklı davranır?");
+            } finally {
+                state.isWaitingForAI = false;
+                document.getElementById('sendBtn').disabled = false;
+            }
+        }
+
+        function advanceStage() {
+            state.currentStage++;
+            state.interactionCountInStage = 0;
+            playSound('levelup');
+
+            if (state.currentStage === 11) {
+                // Switch to Stage 11 Self Definition Form
+                setTimeout(() => {
+                    document.getElementById('chatScreen').classList.add('hidden');
+                    document.getElementById('synthesisScreen').classList.remove('hidden');
+                    document.getElementById('synthesisScreen').classList.add('flex');
+                }, 1800);
+            } else {
+                updateStageUI();
+            }
+        }
+
+        async function generate12StageSocraticResponse(userMessage) {
+            // Online Gemini API call attempt
+            try {
+                const apiKey = "";
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+
+                const systemPrompt = `
+You are "YZ Keşif Rehberi", an empathetic, Socratic learning guide for a 7th grade Bilfen Turkish Information Technology student named "${state.studentName}".
+CRITICAL RULE: DO NOT LECTURE OR GIVE TEXTBOOK DEFINITIONS! Ask questions, guide comparisons, use student's previous answers in context.
+Current Stage: ${state.currentStage} of 12.
+Stage 1: Intelligence definition.
+Stage 2: Intelligent behaviors (Ali's math, Zeynep's game rules, Efe's broken toy).
+Stage 3: Common traits of intelligence (Problem solving, learning, predicting).
+Stage 4: Technology & AI (Facial recognition, YouTube, robot vacuums).
+Stage 5: Why is AI called "Yapay"?
+Stage 6: Chatbot story experiment (Does it think or process patterns?).
+Stage 7: Comparison game (Poetry, math problem, feeling sad, recognizing cat).
+Stage 8: Emotions vs Chatbot empathy ("I understand you are sad").
+Stage 9: Similarities.
+Stage 10: Differences.
+Keep responses concise (2-4 sentences max), encouraging, ending with a guiding question.
+                `;
+
+                const contentsPayload = [
+                    { role: 'user', parts: [{ text: `[Mevcut Aşama: ${state.currentStage}, Öğrenci Cevabı: "${userMessage}"]` }] }
+                ];
+
+                const apiRes = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: contentsPayload,
+                        systemInstruction: { parts: [{ text: systemPrompt }] }
+                    })
+                });
+
+                if (apiRes.ok) {
+                    const data = await apiRes.json();
+                    const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
+                    if (text) {
+                        return {
+                            text: text,
+                            shouldAdvanceStage: state.interactionCountInStage >= 1,
+                            suggestions: getStagePrompts(state.currentStage)
+                        };
+                    }
+                }
+            } catch (err) {}
+
+            // Socratic Rule Engine Fallback logic for offline reliability
+            return getLocal12StageResponse(userMessage);
+        }
+
+        function getLocal12StageResponse(msg) {
+            let replyText = "";
+            let advance = false;
+            let suggestions = [];
+
+            const stage = state.currentStage;
+            const count = state.interactionCountInStage;
+
+            if (stage === 1) {
+                if (count === 1) {
+                    state.memory.initialIntelligenceDef = msg;
+                    replyText = `Harika bir düşünce **${state.studentName}**! 👍 'Zekâ'yı harika bir şekilde ifade etmeye başladın.\n\nPeki sana bir soru daha: **Sadece çok bilgi ezberlemek tek başına zeki olmak için yeterli midir?** Bir insan hiç görmediği yeni bir sorunla karşılaşınca ne yapar?`;
+                    suggestions = [
+                        "Hayır, problem çözmek de gerekir",
+                        "Bilgi yetmez, yorumlamak gerekir",
+                        "Yeni durumlara uyum sağlamalı",
+                        "Mantıklı kararlar verebilmeli",
+                        "Deneyimlerden ders çıkarmalı"
+                    ];
+                } else {
+                    replyText = `Çok güzel bir tespit! 💡 Demek ki zekâ sadece ezber değil; problemleri çözebilmek ve yeni durumlara uyum sağlayabilmektir.\n\nŞimdi 2. durağımıza geçelim! 🔍`;
+                    advance = true;
+                }
+            }
+            else if (stage === 2) {
+                if (count === 1) {
+                    replyText = `Şu günlük yaşam örneklerine bakalım **${state.studentName}**:\n• **Ali** zor bir matematik problemini farklı bir yöntemle çözdü.\n• **Zeynep** yeni bir strateji oyununun kurallarını hemen kavradı.\n• **Efe** bozulan oyuncağının içini açıp tamir etti.\n\n**Sence bu davranışların hangileri birer zekâ göstergesidir ve neden?**`;
+                    suggestions = [
+                        "Hepsi zekâ göstergesidir",
+                        "Çünkü hepsi akıl yürütüyor",
+                        "Karşılaştıkları sorunları çözüyorlar",
+                        "Yeni durumlara hızlıca adapte oluyorlar",
+                        "Farklı yöntem ve stratejiler geliştiriyorlar"
+                    ];
+                } else {
+                    replyText = `Çok haklısın! 🎯 Hepsinin ortak noktası: Akıl yürütmek, yeni durumu anlamak ve bir çözüme ulaşmak.\n\nAdım 3'e geçiyoruz! 💡`;
+                    advance = true;
+                }
+            }
+            else if (stage === 3) {
+                if (count === 1) {
+                    replyText = `Şimdi biraz daha derine inelim **${state.studentName}**.\nFarklı alanlardaki (matematik, oyun, tamir) tüm bu zeki davranışların arkasındaki **en temel insan becerisi nedir?** (Örn: Deneyimlerden öğrenmek mi, tahmin yürütmek mi?)`;
+                    suggestions = [
+                        "Deneyimlerden ders çıkarmak",
+                        "Problemleri analiz etmek",
+                        "Geleceği ve sonuçları tahmin etmek",
+                        "Yeni durumlara uyum sağlamak",
+                        "Mantıklı ve pratik çözümler üretmek"
+                    ];
+                } else {
+                    replyText = `Tebrikler! 🌟 Gerçekten de zekâ, geçmiş deneyimlerden öğrenip yeni problemleri çözebilme kapasitesidir.\n\nPeki ya makineler? 4. Aşamaya geçelim! 🤖`;
+                    advance = true;
+                }
+            }
+            else if (stage === 4) {
+                if (count === 1) {
+                    replyText = `Gündelik hayatta kullandığımız sistemleri düşün:\n• Telefonda **yüz tanıma** kilidi\n• YouTube'un tam senin seveceğin **videoları önermesi**\n• **Robot süpürgenin** engellerden kaçması\n\n**Sence bu teknolojiler 'zeki' davranıyor diyebilir miyiz? Neden?**`;
+                    suggestions = [
+                        "Evet, insan gibi zeki davranıyorlar",
+                        "Hayır, sadece programlandıkları gibi çalışıyorlar",
+                        "Belli dar konularda zeki sayılabilirler",
+                        "Verileri çok hızlı işledikleri için öyle görünüyorlar",
+                        "Zeki görünseler de kendi iradeleri yoktur"
+                    ];
+                } else {
+                    replyText = `İşte işin en merak uyandıran yeri! 🚀 Dışarıdan bakınca zeki gibi görünüyorlar ama arka planda milyonlarca veriyi işliyorlar.\n\n5. Aşama: Neden buna 'Yapay' diyoruz? ⚙️`;
+                    advance = true;
+                }
+            }
+            else if (stage === 5) {
+                if (count === 1) {
+                    replyText = `İnsan zekâsına 'biyolojik/doğal zekâ' diyoruz. Bilgisayarların bu becerisine ise **'YAPAY zekâ'** deniyor.\n\n**Sence insanlar bu teknolojiye neden 'yapay' ismini vermiş olabilir? 'Yapay' ne anlama geliyor?**`;
+                    suggestions = [
+                        "İnsanlar tarafından kodlandığı için",
+                        "Doğada kendiliğinden oluşmadığı için",
+                        "Gerçek bir biyolojik beyni olmadığı için",
+                        "Mühendisler ve yazılımcılar ürettiği için",
+                        "Donanım ve elektrik ile çalıştığı için"
+                    ];
+                } else {
+                    replyText = `Tam üstüne bastın! 🎯 İnsanlar tarafından laboratuvarda, yazılımla üretildiği için doğadan değil, 'yapay'dır.\n\nŞimdi 6. Aşama: Küçük bir Chatbot Deneyi yapalım! 🔄`;
+                    advance = true;
+                }
+            }
+            else if (stage === 6) {
+                if (count === 1) {
+                    replyText = `Harika kelimeler! 🌟 Bu mini deneyde verdiğin kelimelerle sana anında bir hikâye yazdım.\n\n**Sence ben bu hikâyeyi yazarken gerçekten hayal kurup hissediyor muyum, yoksa kelime veri kalıplarını mı eşleştiriyorum?**`;
+                    suggestions = [
+                        "Kelime kalıplarını eşleştiriyorsun",
+                        "Veritabanındaki metinlerden öğreniyorsun",
+                        "Gerçekten düşünüp karar veriyorsun",
+                        "İstatistiksel olarak en uygun kelimeyi seçiyorsun",
+                        "İnsan cümlelerini taklit ediyorsun"
+                    ];
+                } else {
+                    replyText = `İşte büyük sır! 🔑 Yapay zekâ chatbotları 'düşünmez', devasa veri kümesindeki kelime olasılıklarını ve kalıplarını saniyeler içinde eşleştirir.\n\n7. Aşama: Karşılaştırma Oyunu! 🆚`;
+                    advance = true;
+                }
+            }
+            else if (stage === 7) {
+                if (count === 1) {
+                    replyText = `Duygusal bir şiir yazmak veya milyonlarca veriden işlem yapmak...\n\n**Senin cevabına göre: İnsanların en çok üstün olduğu alan ile Yapay Zekânın üstün olduğu alan sence nedir?**`;
+                    suggestions = [
+                        "İnsan duyguda üstün, YZ hızda",
+                        "İnsan yaratıcılıkta, YZ hesaplamada",
+                        "İnsan bilincinde, YZ büyük veride",
+                        "İnsan empati kurar, YZ kural çalıştırır",
+                        "İki tarafın da güçlü olduğu alanlar farklı"
+                    ];
+                } else {
+                    replyText = `Mükemmel bir analiz! 👏 İnsan yaratıcılık ve bilinçte, Yapay zekâ ise büyük veriyi hızlı işleme kapasitesinde öne çıkıyor.\n\n8. Adım: Duygular ve Anlayış ❤️`;
+                    advance = true;
+                }
+            }
+            else if (stage === 8) {
+                if (count === 1) {
+                    replyText = `Bir chatbot sana **'Bugün üzgün olmana gerçekten çok üzüldüm'** dediğinde:\n\n**Sence o chatbot gerçekten senin acını hissediyor mu, yoksa öyle demesi kodlandığı için mi söylüyor?**`;
+                    suggestions = [
+                        "Hissedemez, sadece kuralı uyguluyor",
+                        "Empatik cümleleri taklit ediyor",
+                        "Duygusu, kalbi ve bilinci yoktur",
+                        "Uygun kelimeleri seçip yanıt veriyor",
+                        "İnsan gibi acı veya sevinç duyamaz"
+                    ];
+                } else {
+                    replyText = `Kesinlikle öyle! ❤️ Yapay zekâ empatik cümleleri taklit edebilir ama bilinci, kalbi ve duygusal tecrübesi yoktur.\n\n9. Aşama: Benzerlik Avı! 🧩`;
+                    advance = true;
+                }
+            }
+            else if (stage === 9) {
+                if (count === 1) {
+                    replyText = `Ortak özellikleri seçtin **${state.studentName}**! 👍\n\n**Peki hem bir insanın hem de yapay zekânın 'öğrenebilmesi' sence nasıl gerçekleşiyor? İkisi de nasıl öğrenir?**`;
+                    suggestions = [
+                        "İnsan yaşayarak, YZ veriyle öğrenir",
+                        "İkisi de tecrübelerden ders çıkarır",
+                        "İkisi de girdileri işleyip çıktı üretir",
+                        "İkisi de yeni kalıpları kavrayabilir",
+                        "İkisi de soru sorarak veya veriyi inceleyerek gelişir"
+                    ];
+                } else {
+                    replyText = `Çok derin bir bakış açısı! 🧠 Her ikisi de yeni bilgilerle kendilerini geliştirir.\n\n10. Aşama: Farklılık Dedektifi! 🎯`;
+                    advance = true;
+                }
+            }
+            else if (stage === 10) {
+                if (count === 1) {
+                    replyText = `Dedektiflik cevabın harika! 🕵️\n\n**Son olarak: İnsan zekâsını yapay zekâdan ayıran EN ÖNEMLİ tek bir fark söyleyecek olsan bu ne olurdu?**`;
+                    suggestions = [
+                        "Bilinç ve Gerçek Duygular",
+                        "Biyolojik Beyin ve Organik Yapı",
+                        "Özgür İrade ve Kendi Kararları",
+                        "Empati, Vicdan ve Ahlak",
+                        "Gerçek Yaşam Deneyimi"
+                    ];
+                } else {
+                    replyText = `Tebrikler **${state.studentName}**! 🏆 10 sohbet durağını tamamladın. Artık tüm keşfettiklerini sentezleme zamanı!\n\nŞimdi Kendi Tanımlarını Oluşturma Ekranına (Aşama 11) geçiyoruz! ✍️`;
+                    advance = true;
+                }
+            }
+
+            return {
+                text: replyText,
+                shouldAdvanceStage: advance,
+                suggestions: suggestions.length > 0 ? suggestions : getStagePrompts(stage)
+            };
+        }
+
+        function getStagePrompts(stage) {
+            const map = {
+                1: ["Problem çözebilmek", "Hızlı öğrenebilmek", "Mantıklı düşünmek", "Yeni durumlara uyum sağlamak", "Bilgiyi kullanabilmek"],
+                2: ["Hepsi zekâ örneğidir", "Problemi çözen zekidir", "Deneyim zekâdır", "Çabuk kavrayan zekidir", "Farklı yollar deneyen zekidir"],
+                3: ["Öğrenmek ve uyum sağlamak", "Akıl yürütmek", "Analiz etmek", "Deneyim kazanmak", "Doğru kararlar almak"],
+                4: ["Veri işlediği için zekidir", "Sadece kural takibidir", "Belli konularda zekidir", "İnsan gibi karar veriyor", "Yalnızca yazılım komutudur"],
+                5: ["İnsan tasarımı olduğu için", "Yazılımla yapıldığı için", "Doğal olmadığı için", "Donanım ve kodla çalıştığı için", "Gerçek biyolojik beyni olmadığı için"],
+                6: ["Kalıpları eşleştiriyor", "Gerçekten düşünüyor", "Veriden buluyor", "Olasılıkları hesaplıyor", "Öğrenilmiş kelimeleri bağlıyor"],
+                7: ["İnsan duyguda, YZ hızda", "İnsan sanatta, YZ hesapta", "İkisi de farklı", "İnsan bilincinde, YZ veride", "İnsan empati kurar, YZ kod çalıştırır"],
+                8: ["Hissedemez taklit eder", "Kodlandığı için söyler", "Gerçek duygu değildir", "Sadece uygun kelimeyi seçer", "İnsan gibi üzülemez"],
+                9: ["İkisi de bilgi işler", "İkisi de karar verir", "İkisi de gelişir", "İkisi de problem çözer", "İkisi de tecrübe edinir"],
+                10: ["Bilinç ve Gerçek Duygular", "Biyolojik Beyin", "Özgür İrade", "Empati ve Vicdan", "Gerçek Yaşam Deneyimi"]
+            };
+            return map[stage] || [];
+        }
+
+        function handleSynthesisSubmit(e) {
+            e.preventDefault();
+
+            state.synthesisData = {
+                intelligence: document.getElementById('synIntelligence').value.trim(),
+                ai: document.getElementById('synAI').value.trim(),
+                similarities: document.getElementById('synSimilarities').value.trim(),
+                differences: document.getElementById('synDifferences').value.trim(),
+                keyTakeaway: document.getElementById('synKeyTakeaway').value.trim(),
+            };
+
+            // Fill summary card fields
+            document.getElementById('summaryStudentName').textContent = state.studentName;
+            document.getElementById('outIntelligence').textContent = state.synthesisData.intelligence;
+            document.getElementById('outAI').textContent = state.synthesisData.ai;
+            document.getElementById('outSimilarities').textContent = state.synthesisData.similarities;
+            document.getElementById('outDifferences').textContent = state.synthesisData.differences;
+            document.getElementById('outKeyTakeaway').textContent = state.synthesisData.keyTakeaway;
+
+            const today = new Date().toLocaleDateString('tr-TR', { year: 'numeric', month: 'long', day: 'numeric' });
+            document.getElementById('cardDate').textContent = `Tarih: ${today} | Bilfen Bilişim`;
+
+            // Transition to Summary Screen (Stage 12)
+            document.getElementById('synthesisScreen').classList.add('hidden');
+            document.getElementById('summaryScreen').classList.remove('hidden');
+            document.getElementById('summaryScreen').classList.add('flex');
+
+            playSound('levelup');
+        }
+
+        function resetSession() {
+            state.currentStage = 1;
+            state.interactionCountInStage = 0;
+            state.chatHistory = [];
+            state.synthesisData = {};
+            
+            document.getElementById('chatContainer').innerHTML = '';
+            document.getElementById('summaryScreen').classList.add('hidden');
+            document.getElementById('synthesisScreen').classList.add('hidden');
+            document.getElementById('chatScreen').classList.add('hidden');
+            document.getElementById('welcomeScreen').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
